@@ -72,6 +72,7 @@ stdenv.mkDerivation {
 
     mkdir -p "$out/bin"
     makeWrapper ${lib.getExe' bun "bun"} "$out/bin/${manifest.binary.name}" \
+      --prefix PATH : ${lib.makeBinPath [ bun ]} \
       --add-flags "$shareRoot/${manifest.binary.entrypoint}"
 
     runHook postInstall
